@@ -1,5 +1,5 @@
 
 
 
-<h1><?= e($page->title)?></h1>
-<p><?= $page->content?></p>
+<h1><?= e($page->pageTitle)?></h1>
+<p><?= $page->pageContent?></p>

@@ -9,9 +9,11 @@ if ($route === 'page') {
     $pagesController = new \App\Controller\PagesController(
         new \App\Pages\PagesRepository($pdo)
     );
-    $pages = @(string) ($_GET['route'] ?? 'index');
+    $pages = @(string) ($_GET['page'] ?? 'index');
     $pagesController->show($pages);    
 } else {
-    $notFoundController = new \App\Controller\NotFoundController();
+    $notFoundController = new \App\Controller\NotFoundController(
+        new \App\Pages\PagesRepository($pdo)
+    );
     $notFoundController->error404();
 }

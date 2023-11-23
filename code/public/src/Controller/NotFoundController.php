@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
-class NotFoundController extends AbstractController {   
+use App\Pages\PagesRepository;
+
+class NotFoundController extends AbstractController {
+
+    public function __construct(protected PagesRepository $pagesRepository) {
+        parent::__construct($pagesRepository);
+    }
 
     public function error404() {
-        http_response_code(404);
-        $this->render('notFound/notFound', ["hallo" => 'Lothar']);        
+        return $this->showError404();
     }
 }
