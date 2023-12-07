@@ -29,9 +29,7 @@ services:
         ports:
             - 3306:3306
         environment:
-            - MYSQL_USER=schlucht
-            - MYSQL_PASSWORD=schlucht
-            - MYSQL_ROOT_PASSWORD=schlucht
+            - MARIADB_ROOT_PASSWORD=schlucht
         volumes:
             - db:/var/lib/mysql
     adm:
