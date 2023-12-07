@@ -1,6 +1,0 @@
-[Wed Nov 29 08:47:58.706257 2023] [mpm_event:notice] [pid 1:tid 140342302931784] AH00489: Apache/2.4.58 (Unix) configured -- resuming normal operations
-[Wed Nov 29 08:47:58.706334 2023] [core:notice] [pid 1:tid 140342302931784] AH00094: Command line: 'httpd -D FOREGROUND'
-[Wed Nov 29 10:18:20.625492 2023] [mpm_event:notice] [pid 1:tid 140342302931784] AH00491: caught SIGTERM, shutting down
-[Wed Nov 29 10:41:03.548270 2023] [mpm_event:notice] [pid 1:tid 140685848128328] AH00489: Apache/2.4.58 (Unix) configured -- resuming normal operations
-[Wed Nov 29 10:41:03.548358 2023] [core:notice] [pid 1:tid 140685848128328] AH00094: Command line: 'httpd -D FOREGROUND'
-[Wed Nov 29 15:11:51.518910 2023] [mpm_event:notice] [pid 1:tid 140685848128328] AH00491: caught SIGTERM, shutting down
