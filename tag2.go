@@ -1,14 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
 
 type Game struct {
 	id     int
-	runden []Runde	
+	runden []Runde
 }
 type Runde struct {
 	crl Color
@@ -30,49 +29,47 @@ var games []Game
 
 func tag2() int {
 	createGames()
-	fmt.Println("------- Meine Daten ----")
 	summe := 0
 
-	for _, game := range games {		
+	for _, game := range games {
 		summe += game.id
 		for _, runde := range game.runden {
 			if runde.crl.blue > 14 ||
 				runde.crl.red > 12 ||
 				runde.crl.green > 13 {
-					summe -= game.id
-					fmt.Printf("ID: %d, Blau: %d, Rot: %d, Grün: %d\n",game.id, runde.crl.blue, runde.crl.red, runde.crl.green)
-					break				
-				}
+				summe -= game.id
+				break
+			}
 		}
 	}
-	fmt.Println("------- Ende ----")
+	// fmt.Println("------- Ende ----")
 	return summe
 }
 func tag2_2() int {
 	createGames()
-	fmt.Println("------- Meine Daten ----")
+	// fmt.Println("------- Meine Daten ----")
 	summe := 0
 	// fmt.Printf("ID: %d, Blau: %d, Rot: %d, Grün: %d\n",game.id, runde.crl.blue, runde.crl.red, runde.crl.green)
-	for _, game := range games {		
-		
-			var r,g,b int
+	for _, game := range games {
+
+		var r, g, b int
 		for _, runde := range game.runden {
-			if r < runde.crl.red{
+			if r < runde.crl.red {
 				r = runde.crl.red
 			}
-			if g < runde.crl.green{
+			if g < runde.crl.green {
 				g = runde.crl.green
 			}
-			if b < runde.crl.blue{
-				b = runde.crl.blue		
-			}	
+			if b < runde.crl.blue {
+				b = runde.crl.blue
+			}
 		}
-		potenz := r *g *b
+		potenz := r * g * b
 		summe += potenz
-		fmt.Printf("R:%d G:%d B:%d P: %d S: %d \n", r, g, b, potenz, summe)
+		// fmt.Printf("R:%d G:%d B:%d P: %d S: %d \n", r, g, b, potenz, summe)
 	}
 
-	fmt.Println("------- Ende ----")
+	// fmt.Println("------- Ende ----")
 	return summe
 }
 
@@ -109,8 +106,8 @@ func createGames() {
 			runden = append(runden, rund)
 
 		}
-		game.runden = runden		
-		games = append(games, game)		
+		game.runden = runden
+		games = append(games, game)
 	}
 }
 

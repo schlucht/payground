@@ -1,9 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -20,31 +18,6 @@ var str = []string{
 	"4nineeightseven2",
 	"zoneight234",
 	"7pqrstsixteen",
-}
-
-func splitFile(file string) []string {
-	readFile, err := os.Open(file)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fileScanner := bufio.NewScanner(readFile)
-
-	fileScanner.Split(bufio.ScanLines)
-	txt := []string{}
-	for fileScanner.Scan() {
-		txt = append(txt, fileScanner.Text())
-	}
-	return txt
-}
-
-func digitArr(txt string) []string {
-	d := []string{}
-	for _, s := range txt {
-		if s >= 48 && s <= 57 {
-			d = append(d, string(s))
-		}
-	}
-	return d
 }
 
 func a1() int {
