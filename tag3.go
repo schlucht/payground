@@ -7,16 +7,10 @@ import (
 )
 
 var test = []string{
-	"123.............458...689.556..3............197......582........720.........................515..352..286.........670.741.....895.626....321",
+	"123.............458...689.556..3............197...../582/.......720.........................515..352..286.........670.741.....895.626....321",
 	"...910.743..........................13..........................*.............775...956........@.........*................971.-.............",
 	"....*......406.507.97..846..............968+.........253........730...574............#....308......*.....798..............*.......894.......",
-	"....555...............*......%...............980.+43..=..239..........*......495................638.111.........*490...124...*........576...",
-	".............807......176.....820...=.........*.........@................144*...........324..............82..745............775.............",
-	"...509.../..../...85/......9.........574....744....586....../..796................763...............................759............#........",
-	".....*...541...................930%................*.....831............494...44........799.....................870*.......834.215.675......",
-	".....23..................391.........17.......500..329.................+.....*......................431.....................-...........19..",
-	"........................#.............*.704+./..................................152............=61....................668..............*....",
-	"........894....334.............766.817.........302.-367.663......670.....+..........628..............592..................652......130..885.",
+	"....555...............*..**..%................980+43..=..239..........*......495................638.111.........*490...124...*........576...",
 }
 var testKlein = []string{
 	"467..114..",
@@ -36,31 +30,90 @@ var testKlein = []string{
 // Z3: 846 968 253 730 574 798 971
 // Z4: 555 980 43 495 638 111 490
 // Z5:
-func tag3() int {
-	summe := 0
+func splitLine(lines []string) [][]string {
+	// reg := regexp.MustCompile(`.{0,1}\d+.{0,1}`)
 	reg := regexp.MustCompile(`\d+`)
 
-	txt := test // splitFile("tag3.txt")
 	linedigits := [][]string{}
-	for _, line := range txt {
-		digtits := reg.FindAllString(line, -1)
-		linedigits = append(linedigits, digtits)
+	for _, line := range lines {
+		digits := reg.FindAllString(line, -1)
+		pos := reg.FindAllStringIndex(line, -1)
+		var zahl []string
+		for i, b := range digits {
+			a := ""
+			c := ""
+
+			if pos[i][0] > 0 {
+				a = string(line[pos[i][0]-1])
+			} else {
+				a = ""
+			}
+			if pos[i][1] < len(line) {
+				c = string(line[pos[i][1]])
+			} else {
+				c = ""
+			}
+			//fmt.Println(pos[i], a, b, c)
+			s := fmt.Sprintf("%s%s%s",
+				a,
+				b,
+				c,
+			)
+			//fmt.Println(s)
+			zahl = append(zahl, s)
+
+		}
+		linedigits = append(linedigits, zahl)
 	}
+	return linedigits
+}
+
+func tag3() int {
+	summe := 0
+
+	trim := regexp.MustCompile(`\D`)
+
+	txt := splitFile("tag3.txt")
+	linedigits := splitLine(txt)
 
 	var io []string
 	for i, line := range linedigits {
 		if len(line) > 0 {
 			for _, digit := range line {
-				str := fmt.Sprintf(".%s.", digit)
-				pos := strings.Index(txt[i], str)
-				if pos == -1 {
-					pos := strings.Index(txt)
+				pos := strings.Index(txt[i], digit)
+				fmt.Println(digit)
+				if i >= 0 {
+					// Links
+					if !checkDigitOrPoint(txt[i][pos]) {
+						io = append(io, trim.ReplaceAllString(digit, ""))
+						continue
+					}
+					// rechts
+					if !checkDigitOrPoint(txt[i][pos+len(digit)-1]) {
+						io = append(io, trim.ReplaceAllString(digit, ""))
+						continue
+					}
 				}
-				// var char byte
-				fmt.Println(pos, digit)
+				if i < len(linedigits)-1 {
+					for d := range digit {
+						if !checkDigitOrPoint(txt[i+1][pos+d]) {
+							io = append(io, trim.ReplaceAllString(digit, ""))
+							continue
+						}
+					}
+				}
+				if i > 0 {
+					for d := range digit {
+						if !checkDigitOrPoint(txt[i-1][pos+d]) {
+							io = append(io, trim.ReplaceAllString(digit, ""))
+							continue
+						}
+					}
+				}
 			}
 		}
 	}
+
 	fmt.Println(io)
 	summe = sumString(io)
 	return summe

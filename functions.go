@@ -40,7 +40,7 @@ func splitFile(file string) []string {
 }
 
 func checkDigitOrPoint(b byte) bool {
-	return (b >= 48 || b <= 57) && b == 46
+	return (b >= 48 && b <= 57) || b == 46
 }
 
 func sumString(numbers []string) int {
