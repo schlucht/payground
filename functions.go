@@ -7,6 +7,10 @@ import (
 	"strconv"
 )
 
+func isNum(d byte) bool {
+	return d >= 48 && d <= 57
+}
+
 // Durchläuft einen Text und liest die
 // Zahlen in ein Array
 // param: text string
